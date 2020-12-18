@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import SantaFrame from "./SantaFrame";
-import {frames} from '../assets/frames'
+import {santaFrames} from '../assets/santaFrames'
 import {ToggleButton} from "@material-ui/lab";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
@@ -14,26 +14,30 @@ export default () => {
 
     // css: background
     return (
-        <div>
+        <>
             <ToggleButtonGroup
                 value={currentFrame}
                 exclusive
                 onChange={(event, value) => setCurrentFrame(value)}
             >
-                <ToggleButton value={1}>
+                <ToggleButton value={0}>
                     1
                 </ToggleButton>
-                <ToggleButton value={2}>
+                <ToggleButton value={1}>
                     2
                 </ToggleButton>
-                <ToggleButton value={3}>
+                <ToggleButton value={2}>
                     3
                 </ToggleButton>
-                <ToggleButton value={4}>
-                    4
-                </ToggleButton>
+                {/*<ToggleButton value={3}>*/}
+                {/*    4*/}
+                {/*</ToggleButton>*/}
             </ToggleButtonGroup>
-            <SantaFrame frame={frames[currentFrame]} uploadedImage={1}/>
-        </div>
+            <canvas style={{width: '100vh', height: '100vh'}}>
+            {/*    <div style={{position: 'relative'}}>*/}
+            {/*        <SantaFrame frame={santaFrames[currentFrame]} uploadedImage={1}/>*/}
+            {/*    </div>*/}
+            </canvas>
+        </>
     )
 }
