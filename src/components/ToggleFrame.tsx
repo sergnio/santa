@@ -3,6 +3,7 @@ import SantaFrame from "./SantaFrame";
 import {santaFrames} from '../assets/santaFrames'
 import ImageUpload from "./Dropzone";
 import ToggleGroup from "./ToggleGroup";
+import { Stage, Layer, Rect, Circle } from 'react-konva';
 
 export default () => {
     // state here
@@ -38,6 +39,15 @@ export default () => {
         <>
             <ToggleGroup currentFrame={currentFrame} onChange={onChangeFrame}/>
             <ImageUpload callback={onUpload}/>
+            {/*// Stage - is a div wrapper*/}
+            {/*// Layer - is an actual 2d canvas element, so you can have several layers inside the stage*/}
+            {/*// Rect and Circle are not DOM elements. They are 2d shapes on canvas*/}
+            <Stage width={window.innerWidth} height={window.innerHeight}>
+                <Layer>
+                    <Rect width={50} height={50} fill="red" />
+                    <Circle x={200} y={200} stroke="black" radius={50} />
+                </Layer>
+            </Stage>
             <div className='relative'>
                 <SantaFrame frame={santaFrames[currentFrame]} uploadedImage={uploadedImage}/>
             </div>
