@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/konva@7.2.2/konva.min.js"></script>
+    <meta charset="utf-8"/>
+    <title>Konva Animate Position Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script>
+    function animateHex() {
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+
+        let stage = new Konva.Stage({
+            container: 'container',
+            width: width,
+            height: height,
+        });
+
+        let layer = new Konva.Layer();
+
+        let hexagon = new Konva.RegularPolygon({
+            x: stage.width() / 2,
+            y: stage.height() / 2,
+            sides: 6,
+            radius: 20,
+            fill: 'red',
+            stroke: 'black',
+            strokeWidth: 4,
+        });
+
+        layer.add(hexagon);
+        stage.add(layer);
+
+        let amplitude = 100;
+        let period = 2000;
+        // in ms
+        let centerX = stage.width() / 2;
+
+        let anim = new Konva.Animation(function (frame) {
+            hexagon.x(
+                amplitude * Math.sin((frame.time * 2 * Math.PI) / period) + centerX
+            );
+        }, layer);
+
+        anim.start();
+    }
+
+    function drawCircle() {
+        // first we need to create a stage
+        // this is just the container
+        let stage = new Konva.Stage({
+            container: 'container',   // id of container <div>
+            width: 1500,
+            height: 500
+        });
+
+        // then create layer
+        let layer = new Konva.Layer();
+
+        // create our shape
+        let circle = new Konva.Circle({
+            x: stage.width() / 2,
+            y: stage.height() / 2,
+            radius: 70,
+            fill: 'red',
+            stroke: 'black',
+            strokeWidth: 4
+        });
+
+        // TODO - DING DING DING
+        circle.draggable('true')
+
+        circle.on('mouseout touchend', function() {
+            console.log('user input');
+        });
+
+        circle.on('xChange', function() {
+            console.log('position change');
+        });
+
+        circle.on('dragend', function() {
+            console.log('drag stopped');
+        });
+
+        // add the shape to the layer
+        layer.add(circle);
+
+        // add the layer to the stage
+        stage.add(layer);
+
+        // draw the image
+        layer.draw();
+    }
+
+    drawCircle()
+    // animateHex()
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+.relative{
+    position: relative
+}
+
+.anchorTopLeft {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.SantaCanvas {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.UploadedImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}

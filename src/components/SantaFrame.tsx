@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import {FrameImage} from "../assets/santaFrames";
+import '../styles.css'
 
 interface Props {
     frame: FrameImage
@@ -18,6 +19,9 @@ export default ({frame, uploadedImage}: Props) => {
         const canvas = canvasRef.current
         // @ts-ignore
         const context = canvas.getContext('2d')
+        // todo - how to clear canvas..
+        // context.clearRect(0,0, window.innerWidth, window.innerHeight)
+
         // convert the image to canvas
         const image = new Image();
         image.src = frame.image.src
@@ -42,31 +46,21 @@ export default ({frame, uploadedImage}: Props) => {
 
     return (
         <>
-            <div style={{position: 'relative', top: 0, left: 0}}>
-                <canvas ref={canvasRef}
-                        style={{
-                            position: 'relative',
-                            top: 0,
-                            left: 0,
-                            // width: '1000px',
-                            // height: '1000px',
-                            zIndex: 10
-                        }}
-                        width={window.innerWidth}
-                        height={window.innerHeight}
+            <div className='anchorTopLeft'>
+                <canvas
+                    ref={canvasRef}
+                    className='SantaCanvas'
+                    width={window.innerWidth}
+                    height={window.innerHeight}
                 />
                 {uploadedImage &&
                 <img
+                    className='UploadedImage'
                     width={window.innerWidth}
                     height={window.innerHeight}
-                    style={{
-                        position: 'absolute',
-                        top: '0px',
-                        left: '0px',
-                        zIndex: 1
-                    }}
                     // @ts-ignore
-                    src={uploadedImage} alt='uploadedImage'
+                    src={uploadedImage}
+                    alt='uploadedImage'
                 />
                 }
             </div>
