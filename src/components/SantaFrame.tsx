@@ -13,9 +13,10 @@ interface Props {
  */
 export default ({frame, uploadedImage}: Props) => {
     console.log(frame)
-    const canvasRef = useRef(null)
+    const frameCanvasReference = useRef(null)
+    const uploadedImageCanvasReference = useRef(null)
 
-    useEffect(() => {
+    function imageToCanvas(canvasRef: any, imageSource: any) {
         const canvas = canvasRef.current
         // @ts-ignore
         const context = canvas.getContext('2d')
@@ -24,12 +25,13 @@ export default ({frame, uploadedImage}: Props) => {
 
         // convert the image to canvas
         const image = new Image();
-        image.src = frame.image.src
+        image.src = imageSource
         image.onload = () => {
             context.drawImage(
                 image,
                 0,
                 0,
+                // scale wit this, but keep original aspect ratio
                 window.innerWidth,
                 window.innerHeight,
                 // 0,
@@ -42,27 +44,30 @@ export default ({frame, uploadedImage}: Props) => {
             // loop through all pixels of the image
             // if the alpha value is < 255, this means there's some transparency
         };
-    }, [])
+    }
+
+    useEffect(() => {
+        imageToCanvas(frameCanvasReference, frame.image.src);
+         if (uploadedImage) {
+            imageToCanvas(uploadedImageCanvasReference, uploadedImage)
+         }
+    })
 
     return (
         <>
             <div className='anchorTopLeft'>
                 <canvas
-                    ref={canvasRef}
+                    ref={frameCanvasReference}
                     className='SantaCanvas'
                     width={window.innerWidth}
                     height={window.innerHeight}
                 />
-                {uploadedImage &&
-                <img
+                <canvas
+                    ref={uploadedImageCanvasReference}
                     className='UploadedImage'
                     width={window.innerWidth}
                     height={window.innerHeight}
-                    // @ts-ignore
-                    src={uploadedImage}
-                    alt='uploadedImage'
                 />
-                }
             </div>
         </>
     )
