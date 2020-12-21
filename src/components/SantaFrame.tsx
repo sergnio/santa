@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react'
 import {FrameImage} from "../assets/santaFrames";
 import '../styles.css'
+import Vanilla from "./Vanilla";
 
 interface Props {
     frame: FrameImage
@@ -55,6 +56,7 @@ export default ({frame, uploadedImage}: Props) => {
 
     return (
         <>
+            <Vanilla/>
             <div className='anchorTopLeft'>
                 <canvas
                     ref={frameCanvasReference}
